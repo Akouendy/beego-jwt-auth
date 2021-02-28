@@ -33,7 +33,7 @@ func AddUser(m *User) (id int64, err error) {
 // Id doesn't exist
 func GetUserById(id int64) (v *User, err error) {
 	o := orm.NewOrm()
-	v = &User{Id: id}
+	v = &User{ID: id}
 	if err = o.QueryTable(new(User)).Filter("Id", id).RelatedSel().One(v); err == nil {
 		return v, nil
 	}
@@ -114,11 +114,11 @@ func GetAllUser(query map[string]string, fields []string, sortby []string, order
 	return nil, err
 }
 
-// UpdateUser updates User by Id and returns error if
+// UpdateUserById updates User by Id and returns error if
 // the record to be updated doesn't exist
 func UpdateUserById(m *User) (err error) {
 	o := orm.NewOrm()
-	v := User{Id: m.Id}
+	v := User{ID: m.ID}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -133,11 +133,11 @@ func UpdateUserById(m *User) (err error) {
 // the record to be deleted doesn't exist
 func DeleteUser(id int64) (err error) {
 	o := orm.NewOrm()
-	v := User{Id: id}
+	v := User{ID: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&User{Id: id}); err == nil {
+		if num, err = o.Delete(&User{ID: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}
